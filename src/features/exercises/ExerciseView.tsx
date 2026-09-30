@@ -152,7 +152,7 @@ function Recall({ phrase, onDone }: { phrase: Phrase; onDone: (g: Grade) => void
     <>
       <p className="text-center text-2xl font-semibold">{phrase.de}</p>
       <div className="flex flex-col items-center gap-2">
-        <RecordButton phraseId={phrase.id} />
+        <RecordButton phrase={phrase} />
         <p className="text-xs text-stone-400">Optional: aufnehmen und danach mit dem Original vergleichen</p>
       </div>
       {!revealed ? (

@@ -35,6 +35,13 @@ Wenn du die Lautschrift einer Phrase änderst, fängt diese Karte wieder von vor
 Hinweis: Kostenlose Supabase-Projekte pausieren nach ca. 7 Tagen ohne Nutzung. Im Dashboard reaktivierst du sie mit einem Klick,
 die lokalen Daten in der App bleiben dabei erhalten.
 
+#### Aussprache-Feedback (optional)
+
+Der ✨-Knopf neben der eigenen Aufnahme schickt sie an die Edge Function `supabase/functions/pronunciation`, die ein OpenAI-Audiomodell bewerten lässt. Nur für eingeloggte Nutzer.
+
+1. `npx supabase login` und `npx supabase functions deploy pronunciation --project-ref <ref>`.
+2. Im Dashboard unter **Edge Functions → Secrets** `OPENAI_API_KEY` anlegen. Optional `FEEDBACK_MODEL` (Standard `gpt-audio-mini`, genauer: `gpt-audio-1.5`).
+
 ### 2. GitHub Pages (Hosting)
 
 1. Repo auf GitHub anlegen (z.B. `dari`) und pushen.

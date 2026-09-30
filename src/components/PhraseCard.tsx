@@ -10,10 +10,11 @@ export function PhraseCard({ phrase }: { phrase: Phrase }) {
       {phrase.note && (
         <p className="max-w-md rounded-2xl bg-amber-50 px-4 py-2 text-sm text-amber-900 dark:bg-amber-950/60 dark:text-amber-200">{phrase.note}</p>
       )}
-      <div className="mt-2 flex items-center gap-3">
-        <SpeakButton fa={phrase.fa} size="lg" />
-        <SpeakButton fa={phrase.fa} slow />
-        <RecordButton phraseId={phrase.id} compact />
+      <div className="mt-2">
+        <RecordButton phrase={phrase} compact>
+          <SpeakButton fa={phrase.fa} size="lg" />
+          <SpeakButton fa={phrase.fa} slow />
+        </RecordButton>
       </div>
       <p className="text-xs text-stone-400">Anhören · langsam · selbst sprechen</p>
     </div>

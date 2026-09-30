@@ -4,7 +4,7 @@ import { Button, Card, PageHeader } from '../../components/ui'
 import { exportData, importData, setSetting, useSettings } from '../../lib/settings'
 import { supabase } from '../../lib/supabase'
 import { syncNow, useSyncStatus } from '../../lib/sync'
-import { speak, usePersianVoice } from '../../lib/tts'
+import { speak, useTts } from '../../lib/tts'
 
 export function SettingsPage() {
   return (
@@ -138,18 +138,22 @@ function SyncCard() {
 }
 
 function VoiceCard() {
-  const voice = usePersianVoice()
+  const tts = useTts()
   const { ttsRate } = useSettings()
   return (
     <Card>
       <SectionTitle id="stimme">Stimme</SectionTitle>
-      {voice ? (
+      {tts.state === 'ok' ? (
         <p className="mb-3 text-sm text-stone-600 dark:text-stone-300">
-          ✓ Persische Stimme: <strong>{voice.name}</strong> ({voice.lang})
+          ✓ Vorlesen funktioniert{tts.voiceName && <> – Stimme: <strong>{tts.voiceName}</strong></>}
+        </p>
+      ) : tts.state === 'unknown' ? (
+        <p className="mb-3 text-sm text-stone-600 dark:text-stone-300">
+          Tippe auf „Testen“. Du solltest „salām alaykum“ hören.
         </p>
       ) : (
         <div className="mb-3 flex flex-col gap-2 rounded-2xl bg-amber-50 p-4 text-sm text-amber-900 dark:bg-amber-950/40 dark:text-amber-200">
-          <p className="font-semibold">Keine persische Stimme gefunden.</p>
+          <p className="font-semibold">Vorlesen hat nicht funktioniert.</p>
           <p>
             <strong>iPhone:</strong> Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Persisch → Stimme laden. Danach die App neu öffnen.
           </p>
@@ -172,9 +176,12 @@ function VoiceCard() {
           className="accent-emerald-700"
         />
       </label>
-      <Button variant="secondary" className="mt-3 w-full" disabled={!voice} onClick={() => speak('سلام علیکم، چطور استین؟', ttsRate)}>
+      <Button variant="secondary" className="mt-3 w-full" onClick={() => speak('سلام علیکم، چطور استین؟', ttsRate)}>
         Testen: „salām alaykum, chetor astēn?“
       </Button>
+      <p className="mt-2 text-xs text-stone-500">
+        Nichts zu hören? Auf dem iPhone den <strong>Lautlos-Schalter</strong> ausschalten und die Lautstärke hochdrehen. Im Lautlos-Modus bleibt die Sprachausgabe stumm.
+      </p>
     </Card>
   )
 }

@@ -7,7 +7,7 @@ import { getRows, type StoredCard } from '../../lib/db'
 import { useSettings } from '../../lib/settings'
 import { dueQueue, getCard, Rating, reviewCard, type Grade } from '../../lib/srs'
 import { syncNow } from '../../lib/sync'
-import { usePersianVoice } from '../../lib/tts'
+import { useTts } from '../../lib/tts'
 import { ExerciseView } from '../exercises/ExerciseView'
 import { makeExercise, pickType, shuffle, type Exercise } from '../exercises/generate'
 
@@ -31,7 +31,7 @@ export function ReviewPage() {
 
 function Session({ mode }: { mode: Mode }) {
   const { reviewLimit } = useSettings()
-  const voice = usePersianVoice()
+  const tts = useTts()
 
   const [queue, setQueue] = useState<string[] | null>(null)
   const [pos, setPos] = useState(0)
@@ -60,7 +60,7 @@ function Session({ mode }: { mode: Mode }) {
   const exercise = useMemo<Exercise | null>(() => {
     if (!currentId) return null
     const ph = phraseById.get(currentId)!
-    const type = mode === 'speak' ? 'recall' : pickType(ph, reps[currentId] ?? 0, !!voice)
+    const type = mode === 'speak' ? 'recall' : pickType(ph, reps[currentId] ?? 0, tts.state === 'ok')
     return makeExercise(type, ph, lessonMates.get(ph.id) ?? [], allPhrases)
     // pos is included so a requeued card gets a fresh exercise.
   }, [currentId, pos])

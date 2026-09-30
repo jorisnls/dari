@@ -3,7 +3,7 @@ import { SpeakButton } from '../../components/audio'
 import { Button } from '../../components/ui'
 import type { Dialog, DialogLine, Phrase } from '../../content/types'
 import { useSettings } from '../../lib/settings'
-import { speak, usePersianVoice } from '../../lib/tts'
+import { speak, useTts } from '../../lib/tts'
 import { shuffle } from '../exercises/generate'
 
 /**
@@ -15,7 +15,7 @@ export function DialogView({ dialog, pool, onDone }: { dialog: Dialog; pool: Phr
   const [mistakes, setMistakes] = useState(0)
   const [showDe, setShowDe] = useState(true)
   const { ttsRate } = useSettings()
-  const voice = usePersianVoice()
+  const tts = useTts()
   const bottom = useRef<HTMLDivElement>(null)
 
   const current = dialog.lines[shown] as DialogLine | undefined
@@ -33,8 +33,9 @@ export function DialogView({ dialog, pool, onDone }: { dialog: Dialog; pool: Phr
   // Auto-advance through the other person's lines, reading them aloud.
   useEffect(() => {
     if (!current || current.you) return
-    if (voice) speak(current.fa, ttsRate)
-  }, [current, voice, ttsRate])
+    if (tts.state !== 'failed') speak(current.fa, ttsRate)
+    // Speak each line once, not again when the detection state changes.
+  }, [current, ttsRate])
 
   useEffect(() => {
     bottom.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
@@ -102,6 +103,7 @@ function Bubble({ line, showDe }: { line: DialogLine; showDe: boolean }) {
 }
 
 function YourTurn({ line, options, onCorrect, onWrong }: { line: DialogLine; options: string[]; onCorrect: () => void; onWrong: () => void }) {
+  const { ttsRate: rate } = useSettings()
   const [wrong, setWrong] = useState<string[]>([])
   return (
     <div className="flex flex-col gap-3 rounded-3xl bg-amber-50 p-4 dark:bg-amber-950/40">
@@ -115,7 +117,7 @@ function YourTurn({ line, options, onCorrect, onWrong }: { line: DialogLine; opt
             disabled={wrong.includes(o)}
             onClick={() => {
               if (o === line.latin) {
-                speak(line.fa)
+                speak(line.fa, rate)
                 onCorrect()
               } else {
                 setWrong([...wrong, o])

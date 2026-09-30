@@ -4,7 +4,7 @@ import { Button, Card, ProgressBar } from '../../components/ui'
 import { lessons, unitOfLesson, units } from '../../content'
 import { nextLesson, useCardStats, useCompletedLessons, useStreak } from '../../lib/progress'
 import { useSyncStatus } from '../../lib/sync'
-import { usePersianVoice } from '../../lib/tts'
+import { useTts } from '../../lib/tts'
 
 function greeting() {
   const h = new Date().getHours()
@@ -17,7 +17,7 @@ export function TodayPage() {
   const done = useCompletedLessons()
   const stats = useCardStats()
   const streak = useStreak()
-  const voice = usePersianVoice()
+  const tts = useTts()
   const sync = useSyncStatus()
 
   if (!done || !stats || !streak) return null
@@ -40,9 +40,9 @@ export function TodayPage() {
         </div>
       </header>
 
-      {!voice && (
+      {tts.state === 'failed' && (
         <Link to="/settings#stimme" className="rounded-2xl bg-amber-50 p-4 text-sm text-amber-900 ring-1 ring-amber-200 dark:bg-amber-950/40 dark:text-amber-200 dark:ring-amber-900">
-          🔈 Keine persische Stimme gefunden – ohne sie gibt es kein Vorlesen. <u>So aktivierst du sie</u>
+          🔈 Vorlesen funktioniert gerade nicht. <u>So aktivierst du sie</u>
         </Link>
       )}
       {sync.state === 'error' && (

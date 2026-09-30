@@ -1,16 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
 import { canRecord, loadRecording, saveRecording, startRecording, type ActiveRecording } from '../lib/recorder'
 import { useSettings } from '../lib/settings'
-import { speak, usePersianVoice } from '../lib/tts'
+import { speak, useTts } from '../lib/tts'
 import { MicIcon, PlayIcon, SpeakerIcon, StopIcon } from './icons'
 
 const round =
   'inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition active:scale-95 disabled:opacity-40'
 
 export function SpeakButton({ fa, size = 'md', slow = false }: { fa: string; size?: 'md' | 'lg'; slow?: boolean }) {
-  const voice = usePersianVoice()
+  const tts = useTts()
   const { ttsRate } = useSettings()
   const [hint, setHint] = useState(false)
+  useEffect(() => {
+    if (tts.state !== 'failed') setHint(false)
+  }, [tts.state])
   const cls = size === 'lg' ? 'h-16 w-16' : ''
   return (
     <span className="relative inline-flex">
@@ -19,8 +22,8 @@ export function SpeakButton({ fa, size = 'md', slow = false }: { fa: string; siz
         aria-label="Vorlesen"
         className={`${round} ${cls} bg-emerald-100 text-emerald-800 hover:bg-emerald-200 dark:bg-emerald-950 dark:text-emerald-300`}
         onClick={() => {
-          if (!voice) setHint(true)
-          else speak(fa, slow ? Math.max(0.5, ttsRate - 0.25) : ttsRate)
+          if (tts.state === 'failed') setHint(true)
+          speak(fa, slow ? Math.max(0.5, ttsRate - 0.25) : ttsRate)
         }}
       >
         <SpeakerIcon className={size === 'lg' ? 'h-8 w-8' : ''} />
@@ -30,7 +33,7 @@ export function SpeakButton({ fa, size = 'md', slow = false }: { fa: string; siz
           onClick={() => setHint(false)}
           className="absolute top-full left-0 z-20 mt-2 w-64 rounded-xl bg-stone-900 p-3 text-xs text-white shadow-lg dark:bg-stone-100 dark:text-stone-900"
         >
-          Keine persische Stimme gefunden. Auf dem iPhone: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Persisch laden. Details unter Einstellungen.
+          Vorlesen hat nicht geklappt. Auf dem iPhone: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Persisch laden. Details unter Einstellungen.
         </span>
       )}
     </span>
@@ -40,11 +43,11 @@ export function SpeakButton({ fa, size = 'md', slow = false }: { fa: string; siz
 /** Plays the phrase automatically once when it appears (if enabled). */
 export function useAutoSpeak(fa: string | undefined, enabled = true) {
   const { autoPlay, ttsRate } = useSettings()
-  const voice = usePersianVoice()
+  const { state } = useTts()
   useEffect(() => {
-    if (fa && enabled && autoPlay && voice) speak(fa, ttsRate)
+    if (fa && enabled && autoPlay && state !== 'failed') speak(fa, ttsRate)
     // Only when the text changes, not on every settings tick.
-  }, [fa, enabled, !!voice])
+  }, [fa, enabled])
 }
 
 /** Record yourself, then listen back. The latest take per phrase is kept on this device. */

@@ -8,7 +8,7 @@ import { allPhrases, lessonById, unitOfLesson } from '../../content'
 import { completeLesson } from '../../lib/progress'
 import { introduce, Rating } from '../../lib/srs'
 import { syncNow } from '../../lib/sync'
-import { usePersianVoice } from '../../lib/tts'
+import { useTts } from '../../lib/tts'
 import { DialogView } from '../dialog/DialogView'
 import { ExerciseView } from '../exercises/ExerciseView'
 import { lessonPractice, type Exercise } from '../exercises/generate'
@@ -33,10 +33,10 @@ function LessonFlow({ lessonId }: { lessonId: string }) {
   const lesson = lessonById(lessonId)!
   const unit = unitOfLesson.get(lessonId)!
   const navigate = useNavigate()
-  const voice = usePersianVoice()
+  const tts = useTts()
 
   // Build the practice round once, when the lesson starts.
-  const [practice] = useState<Exercise[]>(() => lessonPractice(lesson.phrases, allPhrases, !!voice))
+  const [practice] = useState<Exercise[]>(() => lessonPractice(lesson.phrases, allPhrases, tts.state === 'ok'))
   const [retry, setRetry] = useState<Exercise[]>([])
 
   const steps = useMemo<Step[]>(() => {

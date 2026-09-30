@@ -17,3 +17,6 @@ create policy "own rows" on public.sync_items
   for all
   using (auth.uid() = user_id)
   with check (auth.uid() = user_id);
+
+-- Newer Supabase projects do not grant table access to the API roles automatically.
+grant select, insert, update, delete on public.sync_items to authenticated;

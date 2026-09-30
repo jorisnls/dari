@@ -1,0 +1,122 @@
+import { p, say, you } from '../helpers'
+import type { Unit } from '../types'
+
+export const unit03: Unit = {
+  id: 'u03',
+  num: 3,
+  title: 'Familie',
+  emoji: '👨‍👩‍👧‍👦',
+  description: 'Eltern, Geschwister, Onkel und Tanten – und wie du sie ansprichst.',
+  lessons: [
+    {
+      id: 'u03-l1',
+      title: 'Eltern & Geschwister',
+      phrases: [
+        p('fāmil', 'فامیل', 'Familie (umgangssprachlich)'),
+        p('khānawāda', 'خانواده', 'Familie'),
+        p('mādar', 'مادر', 'Mutter'),
+        p('padar', 'پدر', 'Vater'),
+        p('khwār', 'خوار', 'Schwester', 'Geschrieben khāhar (خواهر).'),
+        p('barādar', 'برادر', 'Bruder', 'Umgangssprachlich oft „brādar“.'),
+        p('bacha', 'بچه', 'Junge / Sohn / Kind'),
+        p('dukhtar', 'دختر', 'Mädchen / Tochter'),
+        p('awlād', 'اولاد', 'Kinder (eigene)'),
+        p('padar-kalān', 'پدرکلان', 'Großvater'),
+        p('mādar-kalān', 'مادرکلان', 'Großmutter'),
+        p('zan', 'زن', 'Frau / Ehefrau'),
+        p('shōhar', 'شوهر', 'Ehemann'),
+      ],
+      grammar: {
+        title: 'Mein, dein, sein: Endungen -em, -et, -esh',
+        body: [
+          'Besitz wird meist mit einer **Endung** am Nomen ausgedrückt.',
+          'Alternativ geht das Bindungs-**e** (die Ezāfe) mit einem Pronomen: mādar-e man = die Mutter von mir. Beides ist korrekt, die Endungen klingen natürlicher.',
+        ],
+        table: [
+          ['', 'Endung', 'Beispiel'],
+          ['mein', '-em', 'mādar-em (meine Mutter)'],
+          ['dein', '-et', 'padar-et (dein Vater)'],
+          ['sein/ihr', '-esh', 'khwār-esh (seine/ihre Schwester)'],
+          ['unser', '-emān', 'khāna-emān (unser Haus)'],
+          ['Ihr/euer', '-etān', 'fāmil-etān (Ihre Familie)'],
+          ['ihr (Pl.)', '-eshān', 'bacha-eshān (ihr Sohn)'],
+        ],
+        examples: [
+          ['padar-et chetor as?', 'Wie geht es deinem Vater?'],
+          ['mādar-e shumā khub as?', 'Geht es Ihrer Mutter gut?'],
+        ],
+      },
+    },
+    {
+      id: 'u03-l2',
+      title: 'Onkel, Tanten & Co.',
+      phrases: [
+        p('kākā', 'کاکا', 'Onkel (Bruder des Vaters)', 'Auch respektvolle Anrede für ältere Männer.'),
+        p('ammā', 'عمه', 'Tante (Schwester des Vaters)'),
+        p('māmā', 'ماما', 'Onkel (Bruder der Mutter)', 'Achtung: māmā ist der Onkel, nicht die Mama!'),
+        p('khāla', 'خاله', 'Tante (Schwester der Mutter)', 'Auch respektvolle Anrede für ältere Frauen.'),
+        p('bacha-kākā', 'بچه کاکا', 'Cousin (Sohn des Onkels väterlicherseits)'),
+        p('dukhtar-e khāla', 'دختر خاله', 'Cousine (Tochter der Tante mütterlicherseits)'),
+        p('nawāsa', 'نواسه', 'Enkelkind'),
+        p('nāmzad', 'نامزد', 'Verlobte(r)'),
+        p('jān', 'جان', 'Liebes / Seele – als Anhang: -jān', 'mādar-jān, khāla-jān, Joris-jān: macht jede Anrede herzlich.'),
+      ],
+      culture: {
+        title: 'Wie sprichst du die Eltern an?',
+        body: [
+          'Ältere werden fast nie nur mit Vornamen angesprochen. Üblich sind Verwandtschaftswörter mit **-jān**: **khāla-jān** (Tantchen) für ältere Frauen, **kākā-jān** für ältere Männer.',
+          'Die Eltern deiner Freundin kannst du anfangs gut mit **khāla-jān** und **kākā-jān** ansprechen. Manche Familien mögen auch **mādar-jān / padar-jān**. Frag deine Freundin, was ihre Eltern gern hören.',
+          'Das Wort für „Freundin“ im Sinne einer Beziehung ist in vielen Familien heikel. Sprich mit deiner Freundin ab, wie ihr eure Beziehung vor Älteren beschreibt.',
+        ],
+      },
+    },
+    {
+      id: 'u03-l3',
+      title: 'Über die Familie reden',
+      phrases: [
+        p('fāmil-etān khub as?', 'فامیل‌تان خوب است؟', 'Geht es Ihrer Familie gut?', 'Diese Frage gehört zu jeder Begrüßung dazu.'),
+        p('hama khub astan?', 'همه خوب استن؟', 'Geht es allen gut?'),
+        p('chand khwār-o barādar dārēn?', 'چند خوار و برادر دارین؟', 'Wie viele Geschwister haben Sie?'),
+        p('man yak khwār dārum', 'من یک خوار دارم', 'Ich habe eine Schwester'),
+        p('man yak barādar dārum', 'من یک برادر دارم', 'Ich habe einen Bruder'),
+        p('ēn mādar-em as', 'این مادرم است', 'Das ist meine Mutter'),
+        p('padar-o mādar-em dar Almān astan', 'پدر و مادرم در آلمان استن', 'Meine Eltern sind in Deutschland'),
+        p('salām-e mara ba ōnā bugēn', 'سلام مره به اونا بگین', 'Grüßen Sie sie von mir'),
+        p('awlād dārēn?', 'اولاد دارین؟', 'Haben Sie Kinder?'),
+        p('dārum', 'دارم', 'Ich habe'),
+        p('nadārum', 'ندارم', 'Ich habe nicht'),
+      ],
+      grammar: {
+        title: 'Haben: dārum',
+        body: [
+          '„Haben“ heißt **dāshtan**. Im Präsens hat es (anders als die meisten Verben) **kein mē-** davor.',
+          'Verneint wird mit **na-**: dārum → **na**dārum.',
+          '„Und“ heißt **wa**, zwischen zwei Wörtern wird es meist zu **-o** verkürzt: khwār-**o** barādar (Schwester und Bruder).',
+        ],
+        table: [
+          ['Person', 'haben', 'nicht haben'],
+          ['man', 'dārum', 'nadārum'],
+          ['tu', 'dāri', 'nadāri'],
+          ['ō', 'dāra', 'nadāra'],
+          ['mā', 'dārēm', 'nadārēm'],
+          ['shumā', 'dārēn', 'nadārēn'],
+          ['ōnā', 'dāran', 'nadāran'],
+        ],
+      },
+      dialog: {
+        title: 'Die Tante fragt nach deiner Familie',
+        setting: 'Die Tante (khāla) deiner Freundin setzt sich zu dir und schenkt dir Tee ein.',
+        lines: [
+          say('Khāla', 'fāmil-et khub as?', 'فامیلت خوب است؟', 'Geht es deiner Familie gut?'),
+          you('bale, tashakor. fāmil-etān khub as?', 'بلی، تشکر. فامیل‌تان خوب است؟', 'Ja, danke. Geht es Ihrer Familie gut?'),
+          say('Khāla', 'shukr. chand khwār-o barādar dāri?', 'شکر. چند خوار و برادر داری؟', 'Gott sei Dank. Wie viele Geschwister hast du?'),
+          you('man yak khwār dārum', 'من یک خوار دارم', 'Ich habe eine Schwester'),
+          say('Khāla', 'padar-o mādar-et kujā astan?', 'پدر و مادرت کجا استن؟', 'Wo sind deine Eltern?'),
+          you('padar-o mādar-em dar Almān astan', 'پدر و مادرم در آلمان استن', 'Meine Eltern sind in Deutschland'),
+          say('Khāla', 'salām-e mara ba ōnā bugō', 'سلام مره به اونا بگو', 'Grüß sie von mir.'),
+          you('sar-e chashm', 'سر چشم', 'Sehr gern'),
+        ],
+      },
+    },
+  ],
+}

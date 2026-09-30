@@ -1,0 +1,105 @@
+import { p, say, you } from '../helpers'
+import type { Unit } from '../types'
+
+export const unit02: Unit = {
+  id: 'u02',
+  num: 2,
+  title: 'Sich vorstellen',
+  emoji: '🙋',
+  description: 'Name, Herkunft und „ich lerne gerade Dari“.',
+  lessons: [
+    {
+      id: 'u02-l1',
+      title: 'Wer bist du?',
+      phrases: [
+        p('man', 'من', 'ich', 'Umgangssprachlich in Kabul oft kurz „ma“.'),
+        p('tu', 'تو', 'du'),
+        p('ō', 'او', 'er / sie'),
+        p('mā', 'ما', 'wir'),
+        p('shumā', 'شما', 'Sie / ihr'),
+        p('ōnā', 'اونا', 'sie (Plural)'),
+        p('nām-e man Joris as', 'نام من یوریس است', 'Mein Name ist Joris'),
+        p('nām-e shumā chi as?', 'نام شما چی است؟', 'Wie heißen Sie?'),
+        p('nām-et chi as?', 'نامت چی است؟', 'Wie heißt du?'),
+        p('az dēdan-e shumā khosh shodum', 'از دیدن شما خوش شدم', 'Freut mich, Sie kennenzulernen'),
+        p('man ham', 'من هم', 'Ich auch'),
+      ],
+      grammar: {
+        title: 'Sein: astum, asti, as …',
+        body: [
+          'Das Verb „sein“ hängt in der Kabuler Umgangssprache als Endung hinten an und steht am **Satzende**.',
+          'Die Satzstellung ist fast immer **Subjekt – Rest – Verb**: man khub ast**um** (ich gut bin).',
+          'Das Pronomen kannst du weglassen, weil die Endung schon zeigt, wer gemeint ist: **khub astum** reicht völlig.',
+        ],
+        table: [
+          ['Person', 'sein', 'Beispiel'],
+          ['man (ich)', 'astum', 'man khub astum'],
+          ['tu (du)', 'asti', 'tu khub asti'],
+          ['ō (er/sie)', 'as', 'ō khub as'],
+          ['mā (wir)', 'astēm', 'mā khub astēm'],
+          ['shumā (Sie/ihr)', 'astēn', 'shumā khub astēn'],
+          ['ōnā (sie)', 'astan', 'ōnā khub astan'],
+        ],
+        examples: [
+          ['man Joris astum', 'Ich bin Joris'],
+          ['ōnā khub astan', 'Ihnen geht es gut'],
+        ],
+      },
+    },
+    {
+      id: 'u02-l2',
+      title: 'Woher kommst du?',
+      phrases: [
+        p('az kujā astēn?', 'از کجا استین؟', 'Woher kommen Sie?'),
+        p('az kujā asti?', 'از کجا استی؟', 'Woher kommst du?'),
+        p('man az Almān astum', 'من از آلمان استم', 'Ich komme aus Deutschland'),
+        p('man Almāni astum', 'من آلمانی استم', 'Ich bin Deutscher'),
+        p('dar Almān zindagi mēkunum', 'در آلمان زندگی می‌کنم', 'Ich lebe in Deutschland'),
+        p('shumā az Kābul astēn?', 'شما از کابل استین؟', 'Kommen Sie aus Kabul?'),
+        p('Afghānistān', 'افغانستان', 'Afghanistan'),
+        p('Afghān', 'افغان', 'Afghane / Afghanin'),
+        p('shahr', 'شهر', 'Stadt'),
+        p('watan', 'وطن', 'Heimat(land)'),
+      ],
+      dialog: {
+        title: 'Der Onkel fragt nach',
+        setting: 'Beim Familienessen sitzt du neben dem Onkel (kākā) deiner Freundin. Er ist neugierig.',
+        lines: [
+          say('Kākā', 'nām-et chi as, bachēm?', 'نامت چی است، بچیم؟', 'Wie heißt du, mein Junge?'),
+          you('nām-e man Joris as', 'نام من یوریس است', 'Mein Name ist Joris'),
+          say('Kākā', 'az kujā asti?', 'از کجا استی؟', 'Woher kommst du?'),
+          you('man az Almān astum', 'من از آلمان استم', 'Ich komme aus Deutschland'),
+          say('Kākā', 'wāh! Dari gap mēzani?', 'واه! دری گپ می‌زنی؟', 'Wow! Sprichst du Dari?'),
+          you('kam-kam gap mēzanum', 'کم کم گپ می‌زنم', 'Ein bisschen'),
+          say('Kākā', 'āfarin!', 'آفرین!', 'Bravo!'),
+        ],
+      },
+    },
+    {
+      id: 'u02-l3',
+      title: 'Ich lerne noch',
+      phrases: [
+        p('Dari gap mēzanēn?', 'دری گپ می‌زنین؟', 'Sprechen Sie Dari?'),
+        p('kam-kam gap mēzanum', 'کم کم گپ می‌زنم', 'Ich spreche ein bisschen'),
+        p('man Dari yād mēgirum', 'من دری یاد می‌گیرم', 'Ich lerne Dari'),
+        p('Dari-ye man khub nēs', 'دری من خوب نیست', 'Mein Dari ist nicht gut'),
+        p('fahmēdum', 'فهمیدم', 'Ich habe verstanden'),
+        p('nafahmēdum', 'نفهمیدم', 'Ich habe nicht verstanden'),
+        p('lutfan āhesta gap bezanēn', 'لطفاً آهسته گپ بزنین', 'Bitte sprechen Sie langsam'),
+        p('yak dafa dega bugēn', 'یک دفعه دیگه بگین', 'Sagen Sie es bitte noch einmal'),
+        p('… ra ba Dari chi mēgan?', '… را به دری چی میگن؟', 'Wie sagt man … auf Dari?'),
+        p('ma‘nā-ye ēn chi as?', 'معنای این چی است؟', 'Was bedeutet das?'),
+        p('namēfāmum', 'نمی‌فامم', 'Ich weiß es nicht / verstehe nicht', 'Kabuler Aussprache von nemēfahmam.'),
+        p('āfarin', 'آفرین', 'Bravo! Gut gemacht!'),
+      ],
+      culture: {
+        title: 'Jeder Versuch zählt',
+        body: [
+          'Afghanische Familien freuen sich riesig, wenn jemand von außen Dari lernt. Schon **salām alaykum** und **zinda bāshēn** machen einen großen Eindruck.',
+          'Rechne damit, dass alle lachen, wenn du etwas sagst. Das ist fast immer **liebevoll gemeint**, nicht spöttisch. Lach einfach mit und sag **kam-kam yād mēgirum** (ich lerne nach und nach).',
+          '„Gap zadan“ (wörtl. Worte schlagen) ist das Alltagswort für **sprechen / plaudern**. Ein **gap** ist ein Gespräch.',
+        ],
+      },
+    },
+  ],
+}

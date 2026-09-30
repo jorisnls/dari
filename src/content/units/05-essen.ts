@@ -1,0 +1,87 @@
+import { p, say, you } from '../helpers'
+import type { Unit } from '../types'
+
+export const unit05: Unit = {
+  id: 'u05',
+  num: 5,
+  title: 'Essen & Tee',
+  emoji: '🍵',
+  description: 'Afghanisches Essen, Tee trinken und Komplimente an die Köchin.',
+  lessons: [
+    {
+      id: 'u05-l1',
+      title: 'Am Tisch',
+      phrases: [
+        p('nān', 'نان', 'Brot – auch: Essen, Mahlzeit'),
+        p('nān khordi?', 'نان خوردی؟', 'Hast du schon gegessen?', 'Eine übliche Begrüßungsfrage. Sie ist oft eine Einladung.'),
+        p('gushna astum', 'گشنه استم', 'Ich habe Hunger'),
+        p('teshna astum', 'تشنه استم', 'Ich habe Durst'),
+        p('āb', 'آب', 'Wasser'),
+        p('yak gilās āb', 'یک گیلاس آب', 'Ein Glas Wasser'),
+        p('gōsht', 'گوشت', 'Fleisch'),
+        p('birinj', 'برنج', 'Reis'),
+        p('sabzi', 'سبزی', 'Gemüse / Spinatgericht'),
+        p('mēwa', 'میوه', 'Obst'),
+        p('bismillāh', 'بسم الله', 'Im Namen Gottes – vor dem Essen', 'Sagt man leise, bevor man anfängt zu essen.'),
+        p('nōsh-e jān', 'نوش جان', 'Guten Appetit / Lass es dir schmecken'),
+      ],
+    },
+    {
+      id: 'u05-l2',
+      title: 'Afghanische Gerichte',
+      phrases: [
+        p('qābili palaw', 'قابلی پلو', 'Qabuli Palau – Reis mit Fleisch, Karotten & Rosinen', 'Das Nationalgericht. Es zu loben ist immer richtig.'),
+        p('mantu', 'منتو', 'Mantu – gefüllte Teigtaschen mit Joghurtsoße'),
+        p('āshak', 'آشک', 'Aschak – Lauch-Teigtaschen'),
+        p('bolāni', 'بولانی', 'Bolani – gefülltes Fladenbrot'),
+        p('kabāb', 'کباب', 'Kebab'),
+        p('qōrma', 'قورمه', 'Qorma – Schmorgericht / Soße'),
+        p('dōgh', 'دوغ', 'Dugh – Joghurtgetränk'),
+        p('khēli mazadār as', 'خیلی مزه دار است', 'Das ist sehr lecker'),
+        p('ēn chi nām dāra?', 'این چی نام داره؟', 'Wie heißt das (Gericht)?'),
+        p('khosh-em āmad', 'خوشم آمد', 'Das hat mir gefallen / geschmeckt'),
+        p('dast-etān dard nakuna', 'دست‌تان درد نکنه', 'Danke fürs Kochen (wörtl. möge Ihre Hand nicht schmerzen)', 'Der perfekte Satz an die Köchin nach dem Essen!'),
+      ],
+      culture: {
+        title: 'Taarof – das höfliche Ablehnen',
+        body: [
+          'Wenn dir etwas angeboten wird, lehnt man traditionell **erst höflich ab** („bas as, tashakor“), und der Gastgeber besteht darauf. Das gehört zum Ritual, das nennt man **taʿārof**.',
+          'Umgekehrt gilt: Ein einfaches „Nein“ von dir wird oft **nicht ernst genommen**. Dein Teller wird trotzdem nachgefüllt. Wenn du wirklich satt bist, sag es mehrfach und leg die Hand aufs Herz: **sēr shodum, zinda bāshēn**.',
+          'Iss am besten von allem ein bisschen und lobe das Essen. Das ist das größte Kompliment für die Gastgeberin.',
+        ],
+      },
+    },
+    {
+      id: 'u05-l3',
+      title: 'Tee & Nachschlag',
+      phrases: [
+        p('chāy', 'چای', 'Tee'),
+        p('chāy-e sabz', 'چای سبز', 'Grüner Tee'),
+        p('chāy-e siyā', 'چای سیاه', 'Schwarzer Tee'),
+        p('qand', 'قند', 'Zuckerstück'),
+        p('shīrini', 'شیرینی', 'Süßigkeiten / Gebäck'),
+        p('chāy mēkhorēn?', 'چای می‌خورین؟', 'Möchten Sie Tee? (wörtl. trinken Sie Tee?)'),
+        p('bale, lutfan', 'بلی، لطفاً', 'Ja, bitte'),
+        p('kami dega', 'کمی دیگه', 'Ein bisschen mehr'),
+        p('bas as, tashakor', 'بس است، تشکر', 'Das reicht, danke'),
+        p('sēr shodum', 'سیر شدم', 'Ich bin satt'),
+        p('ta‘ārof nakunēn', 'تعارف نکنین', 'Bitte zieren Sie sich nicht / greifen Sie zu'),
+        p('befarmāyēn', 'بفرمایین', 'Bitte sehr / bedienen Sie sich'),
+      ],
+      dialog: {
+        title: 'Nachschlag beim Abendessen',
+        setting: 'Du hast schon einen großen Teller Qabuli Palau gegessen. Die Mutter deiner Freundin kommt mit dem Topf.',
+        lines: [
+          say('Mutter', 'kami dega bokhor, bachēm', 'کمی دیگه بخور، بچیم', 'Iss noch ein bisschen, mein Junge.'),
+          you('bas as, tashakor', 'بس است، تشکر', 'Das reicht, danke'),
+          say('Mutter', 'ta‘ārof nakō! nōsh-e jān', 'تعارف نکو! نوش جان', 'Zier dich nicht! Lass es dir schmecken.'),
+          you('sēr shodum. khēli mazadār as', 'سیر شدم. خیلی مزه دار است', 'Ich bin satt. Es ist sehr lecker.'),
+          say('Mutter', 'chāy mēkhori?', 'چای می‌خوری؟', 'Möchtest du Tee?'),
+          you('bale, lutfan', 'بلی، لطفاً', 'Ja, bitte'),
+          you('dast-etān dard nakuna', 'دست‌تان درد نکنه', 'Danke fürs Kochen'),
+          say('Mutter', 'nōsh-e jān, bachēm', 'نوش جان، بچیم', 'Gern geschehen, mein Junge.'),
+        ],
+      },
+    },
+  ],
+}

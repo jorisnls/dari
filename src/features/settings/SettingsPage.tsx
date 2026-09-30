@@ -31,8 +31,7 @@ function SyncCard() {
   const status = useSyncStatus()
   const [session, setSession] = useState<Session | null>(null)
   const [email, setEmail] = useState('')
-  const [code, setCode] = useState('')
-  const [phase, setPhase] = useState<'email' | 'code'>('email')
+  const [password, setPassword] = useState('')
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<string | null>(null)
 
@@ -54,24 +53,33 @@ function SyncCard() {
     )
   }
 
-  async function sendCode() {
+  async function signIn() {
     setBusy(true)
     setMsg(null)
-    const { error } = await supabase!.auth.signInWithOtp({ email: email.trim(), options: { shouldCreateUser: true } })
+    const { error } = await supabase!.auth.signInWithPassword({ email: email.trim(), password })
     setBusy(false)
-    if (error) setMsg(error.message)
-    else {
-      setPhase('code')
-      setMsg('Code wurde gesendet – schau in dein Postfach (auch im Spam).')
+    if (error) {
+      setMsg(
+        error.message.includes('not confirmed')
+          ? 'Bitte zuerst den Bestätigungslink in der Mail anklicken, dann hier anmelden.'
+          : 'Anmeldung fehlgeschlagen – E-Mail oder Passwort falsch? Noch kein Konto? Dann „Konto erstellen“.',
+      )
     }
   }
 
-  async function verify() {
+  async function signUp() {
     setBusy(true)
     setMsg(null)
-    const { error } = await supabase!.auth.verifyOtp({ email: email.trim(), token: code.trim(), type: 'email' })
+    const { data, error } = await supabase!.auth.signUp({
+      email: email.trim(),
+      password,
+      options: { emailRedirectTo: window.location.href.split('#')[0] },
+    })
     setBusy(false)
     if (error) setMsg(error.message)
+    else if (!data.session) {
+      setMsg('Konto erstellt! Klick auf den Link in der Bestätigungsmail (auch im Spam schauen) und melde dich dann hier an.')
+    }
   }
 
   const input =
@@ -102,33 +110,26 @@ function SyncCard() {
       ) : (
         <div className="flex flex-col gap-3">
           <p className="text-sm text-stone-600 dark:text-stone-300">
-            Melde dich auf Laptop und iPhone mit derselben E-Mail an. Du bekommst einen Code per Mail, ein Passwort brauchst du nicht.
+            Melde dich auf Laptop und iPhone mit demselben Konto an. Beim ersten Mal „Konto erstellen“ und die Bestätigungsmail anklicken.
           </p>
-          {phase === 'email' ? (
-            <>
-              <input className={input} type="email" autoComplete="email" placeholder="deine@email.de" value={email} onChange={(e) => setEmail(e.target.value)} />
-              <Button disabled={busy || !email.includes('@')} onClick={sendCode}>
-                Code senden
-              </Button>
-            </>
-          ) : (
-            <>
-              <input
-                className={`${input} text-center text-2xl tracking-[0.4em]`}
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                placeholder="Code"
-                value={code}
-                onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
-              />
-              <Button disabled={busy || code.length < 6} onClick={verify}>
-                Anmelden
-              </Button>
-              <Button variant="ghost" onClick={() => setPhase('email')}>
-                Andere E-Mail
-              </Button>
-            </>
-          )}
+          <input className={input} type="email" autoComplete="username" placeholder="deine@email.de" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            className={input}
+            type="password"
+            autoComplete="current-password"
+            placeholder="Passwort (mind. 6 Zeichen)"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && signIn()}
+          />
+          <div className="flex gap-2">
+            <Button className="flex-1" disabled={busy || !email.includes('@') || password.length < 6} onClick={signIn}>
+              Anmelden
+            </Button>
+            <Button variant="secondary" disabled={busy || !email.includes('@') || password.length < 6} onClick={signUp}>
+              Konto erstellen
+            </Button>
+          </div>
           {msg && <p className="text-sm text-stone-600 dark:text-stone-300">{msg}</p>}
         </div>
       )}

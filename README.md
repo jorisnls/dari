@@ -27,9 +27,8 @@ Wenn du die Lautschrift einer Phrase änderst, fängt diese Karte wieder von vor
 
 1. Auf [supabase.com](https://supabase.com) kostenlos ein Projekt anlegen.
 2. **SQL Editor** → Inhalt von `supabase/schema.sql` einfügen → Run.
-3. **Authentication → Email Templates → Magic Link**: Den Text so ändern, dass der Code drinsteht, z.B.
-   `<h2>Dein Dari-Code</h2><p>{{ .Token }}</p>`.
-   Die App nutzt Codes statt Links, weil Links auf dem iPhone in Safari statt in der App aufgehen.
+3. Login läuft per E-Mail + Passwort, dafür reichen die Standard-Mails (kein eigener SMTP-Server nötig).
+   Beim ersten Mal in der App „Konto erstellen“ und den Bestätigungslink in der Mail anklicken.
 4. **Project Settings → API**: `Project URL` und den `anon`-Key kopieren.
 5. Lokal: `.env.example` nach `.env.local` kopieren und die Werte eintragen.
 
